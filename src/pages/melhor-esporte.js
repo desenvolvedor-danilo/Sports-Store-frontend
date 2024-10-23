@@ -1,15 +1,13 @@
 
 import Image from 'next/image';
-import NavBar from './Navbar';
+import NavBar from './navbar';
 import Script from "./Script";
 import Produtos from "./Produtos";
 import ProdutosLancamentos from "./ProdutosLancamento";
-
 function MelhorEsporte(){
     return(
         <>
-        
-        <NavBar></NavBar>
+        <NavBar/>
         <div className="corra-com-dkmodas">  
             <ProdutosLancamentos target="/nikerevolution" img={<Image src={require("./imagens/download.jpeg")} alt="Tênis nike revolution 7"/>} nome="Tênis nike revolution 7 - Masculino" edicao="Lançamento" precoAntigo="R$ 399,99" precoNovo="R$ 299,99 no pix" outrasCores="Mais opções de cores"/>
             <ProdutosLancamentos target="/mizunowave" img={<Image src={require("./imagens/images.jpeg")} alt="Mizuno wave dinasty 6"/>} nome="Tênis mizuno wave dynasty 6 - Feminino" edicao="Lançamento" precoAntigo="R$ 499,99" precoNovo="R$ 314,99 no pix" parcelado="ou 4x de R$ 87,50 " outrasCores="Mais opções de cores"/>         
@@ -28,7 +26,6 @@ function MelhorEsporte(){
             <Produtos target="/rapidmove" img={<Image src={require("./imagens/didas rapidmove.jpeg")} alt="adidas rapidmove"/>} nome="Tênis adidas Rapidmove Adv - Masculino" precoAntigo="R$ 799,99" precoNovo="R$ 479,99 no pix" parcelado="ou 6x de R$ 80,00" cor="Cor única"/>
             <Script/>
             </div>
-            
         </>
     
     )

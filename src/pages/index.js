@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 import Slide from "./slide";
 import Tenis from "./tenis";
 

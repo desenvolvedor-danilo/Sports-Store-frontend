@@ -121,11 +121,61 @@ a {
   }
 }
 
-.userExist{
+
+
+.userError{
   color: red;
   animation-name: vibrar;
   animation-duration: 0.1s;
   margin-top:-25px ;
+  text-align: center;
+}
+.userNonExist{
+
+  background-color: red;
+  background-image: radial-gradient( rgb(255, 0,70), rgb(255,0,0));
+  color: white;
+  font-weight:bolder;
+  animation-name: vibrar;
+  animation-duration: 0.1s;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.userCreated{
+  background-color: #212529;
+  
+  color: #56BAED;
+  font-weight:bolder;
+  animation-name: vibrar;
+  animation-duration: 0.1s;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  animation-name:vibrar;
+  animation-duration: 0.1s;
+  
+}
+.voltar_login{
+  margin: auto;
+  color: #56BAED;
+}
+.box-greetins{
+  border: rgba(0, 0, 0, 0.226) 1px solid;
+  border-radius: 5px;
+  box-shadow:  -3px -3px 10px rgba(0, 0, 0, 0.377);
+  width: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
+.username{
+  font-weight: bolder;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: -1px;
 }
 
 @media (prefers-color-scheme: dark) {
