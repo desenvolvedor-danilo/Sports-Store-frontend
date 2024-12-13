@@ -8,15 +8,25 @@ export default function ContextProvider({children}){
           email:""
         }
       );
-      const [isLogado,setIsLogado] = useState(false);
+      const [editableDados,setEditableDados] = useState(false);
+      const [editableEndereco,setEditableEndereco] = useState(false);
+      const [isLogado,setIsLogado] = useState();
       const [dad,setDado] = useState(
         {
           dados:""
         }
       );         
-      
+    const dadosEditaveis = (e)=>{
+      e.preventDefault();
+      setEditableDados(!editableDados);
+    }
+    const enderecoEditavel = (e) =>{
+      e.preventDefault();
+      setEditableEndereco(!editableEndereco);
+    }
+
     return(
-        <Context.Provider value={{email,setEmail,dad,setDado,setIsLogado,isLogado}}>
+        <Context.Provider value={{email,setEmail,dad,setDado,setIsLogado,isLogado,editableDados,dadosEditaveis,editableEndereco,enderecoEditavel}}>
             {children}
         </Context.Provider>
     )

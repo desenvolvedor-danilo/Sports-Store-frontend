@@ -1,14 +1,18 @@
 import Link from "next/link"
 import Image from "next/image"
 import Request from "./request"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Context } from "./contexto/UserContext"
+import Refresh from "./refresh"
 
 export default function Navbar(){
-  const {isLogado,setIslogado} = useContext(Context);
+  useEffect(()=>{
+    setIsLogado(localStorage.getItem("logado"))
+  },[])
+  const [isLogado,setIsLogado] = useState();
   const logout = ()=>{
-    localStorage.removeItem("token");
-    setIslogado(false);
+    setIsLogado(false);
+    localStorage.clear()
   }
     return(
         <>
@@ -107,7 +111,7 @@ export default function Navbar(){
                     </ul>
                   </li>
                 </ul>
-                
+                <Refresh/>
               </div>
             </div>
           </div>

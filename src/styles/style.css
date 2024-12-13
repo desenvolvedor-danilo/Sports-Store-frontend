@@ -940,3 +940,91 @@ margin-right: 1%;
 .nav-item.dropdown{
 list-style: none;
 }
+label{
+  display: block;
+}
+#nav{
+  width: 150px;
+  border: 1px solid gray;
+  border-top: white;
+  border-bottom: white;
+  border-left: white;
+  height: 470px;
+}
+.crud_produtos{
+  color: rgb(124, 119, 119);
+  display: block;
+}
+.crud_produtos:nth-child(1){
+  margin-top: 10px;
+}
+.crud_produtos{
+  margin-top: 20px;
+  margin-left: 10px;
+
+}
+.crud_produtos:focus{
+  box-shadow: 2px 2px 10px #21252994;
+  border-radius: 3px;
+  background-color: rgb(236, 234, 234);
+  color: rgb(54, 46, 46);
+  transition-delay: 300ms;
+}
+#titulo_centralizado{
+  text-align: center;
+  color: gray;
+  box-shadow: 2px 2px 10px #21252994;
+  margin-top: 1px;
+
+}
+.container_pages.grafics{
+  width: fit-content;
+  left:25.5%;
+  top: 24%;
+  position: absolute;
+  
+}
+.container_pages{
+  width: fit-content;
+  left:31.5%;
+  top: 11.5%;
+  position: absolute;
+  
+}
+#titulo_admin{
+color: gray;
+}
+#image_admin{
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: -35%;
+  
+}
+#big_box{
+  height: 100px;
+}
+#center{
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;  
+  color:gray
+}
+#center>p{
+  text-align: center;
+
+}
+#formContentAdmin{
+  -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 90%;
+    
+    max-width: 450px;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+  }

@@ -10,7 +10,8 @@ export default function Login(){
   const [isShow,setIsShow] = useState(false);
   const {isLogado,setIsLogado} = useContext(Context);
   const [token,setToken] = useState({
-    token:""
+    token:"",
+    refreshToken:""
   }
   )
   const router = useRouter();
@@ -31,10 +32,12 @@ export default function Login(){
         body:JSON.stringify(login),
       })
       const promisse = new Promise((dado)=>{
-        dado(response.text());
+        dado(response.json());
       })
       promisse.then((val)=>{
-        setToken({token:val})
+        setToken({token:val.token,
+          refreshToken:val.refreshToken
+        })
       })
       setStatus(response.status)
       if(response.ok){
@@ -48,12 +51,14 @@ export default function Login(){
   useEffect(()=>{
     if(status===200){
   localStorage.setItem("token",token.token);
+  localStorage.setItem("refresh-token",token.refreshToken)
   localStorage.setItem("email",login.email);
+  localStorage.setItem("logado",isLogado);
   router.push("/")
     }
     
-  },[login,token,status,router])
-  console.log(token.token)
+  },[login,token,status,router,isLogado])
+  console.log(token.token,token.refreshToken)
      return(
         <>
         <Navbar/>
