@@ -1,9 +1,8 @@
 import Navbar from "@/pages/navbar";
 import NavbarAdmin from "./components/navbar_admin";
 import InsertBase from "./components/insert_base";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NotLogin from "./components/notlogin";
-import { Context } from "../contexto/UserContext";
 export default function InsertProduct(){
     const [isLogado,setIsLogado] = useState();
     useEffect(()=>{
@@ -14,15 +13,15 @@ export default function InsertProduct(){
         
         <>
         <Navbar/>
-        {
+        {/* {
             !isLogado &&
             <NotLogin/>
-        }
+        } */}
         <NavbarAdmin/>
-        {
-            isLogado  &&
+        
+    
             <InsertBase/>
-        }
+        
         
         </>
     )

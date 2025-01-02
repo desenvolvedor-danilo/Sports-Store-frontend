@@ -18,7 +18,7 @@ export default function Perfil(){
   const [form,setForm] = useState(
     {
     name:"",
-    usuario:"",
+    username:"",
     }
     );
     useEffect(()=>{
@@ -35,7 +35,7 @@ export default function Perfil(){
         setForm(
             {
                 name:val.name,
-                usuario:val.username,
+                username:val.username,
                 email:val.email,
                 
             }
@@ -59,7 +59,7 @@ export default function Perfil(){
         body:JSON.stringify
         ({
           "name":form.name,
-          "usuario":form.username,
+          "username":form.username,
           "email":emailWrap
         })
       }).then((res)=>console.log(res.status)).then(()=>dadosEditaveis(e))
@@ -115,7 +115,7 @@ export default function Perfil(){
         <form onSubmit={promisse}>
             
             <input type="text"  style={!editableDados ? {color: "gray"}:{color: "black"}} readOnly={!editableDados ? true : false} Value={islogado ? form.name : "" } name="nome" className="fadeIn second perfil" onChange={(e)=>editForm(e,"name")}/>
-        <input type="text"  style={!editableDados ? {color: "gray"}:{color: "black"}} readOnly={!editableDados ? true : false} name="username" Value={islogado ? form.usuario : ""} className="fadeIn second perfil" onChange={(e)=>editForm(e,"username")}/>
+        <input type="text"  style={!editableDados ? {color: "gray"}:{color: "black"}} readOnly={!editableDados ? true : false} name="username" Value={islogado ? form.username : ""} className="fadeIn second perfil" onChange={(e)=>editForm(e,"username")}/>
         <input type="email" style={{color: "gray"}} readOnly name="email" value={islogado ? emailWrap : "" } className="fadeIn second  perfil" onChange={(e)=>editForm(e,"nome")}/>
         {
           editableDados ? <input type="submit" className="fadeIn fourth" value="salvar"/>  :  <input type="button" className="fadeIn fourth" value="editar" onClick={(e)=>dadosEditaveis(e)}/>   

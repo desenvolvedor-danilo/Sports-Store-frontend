@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import Navbar from "./navbar"
 import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
-export default function Cadastro(){
+
+ export default function Cadastro(){
   const router = useRouter();
   const [resp,setResp] = useState();
   const [form,setForm] = useState({
@@ -10,6 +11,7 @@ export default function Cadastro(){
     name:'',
     username:'',
     password:'',
+    passwordVerified:'',
     cpf:'',
     cep:'',
     complemento:'',
@@ -19,7 +21,7 @@ export default function Cadastro(){
     uf:'',
   })
   const [isShow,setIsShow] = useState(false);
-  
+  const [isShow2,setIsShow2] = useState(false);
   const handleFormEdit = (event,name)=>{
       setForm({...form,
       [name]: event.target.value
@@ -47,7 +49,7 @@ export default function Cadastro(){
      setResp(response.status);
 
       if(response.status==200){
-        router.push("/login");
+        router.push("/confirm");
        } 
         }catch(err){
       console.log(err);
@@ -56,6 +58,10 @@ export default function Cadastro(){
 const editShow = (e) =>{
   e.preventDefault()
   setIsShow(!isShow);
+}
+const editShow2 = (e)=>{
+  e.preventDefault();
+  setIsShow2(!isShow2);
 }
     return(
         <>
@@ -73,17 +79,16 @@ const editShow = (e) =>{
         <input type="text"  id="estado" className="fadeIn second" name="cadastro" placeholder="Estado" required defaultValue={form.uf}/>
         <input type="text"  id="complemento" className="fadeIn second" name="cadastro" placeholder="Complemento" value={form.complemento}  onChange={(e)=>handleFormEdit(e,"complemento")}/>
         <input type="text" id="nome" className="fadeIn second" name="cadastro" placeholder="Nome" required value={form.name} onChange={(e)=>{handleFormEdit(e,'name')}}/>
-        <input type="email" id="email" className="fadeIn second" name="cadastro" placeholder="E-mail" autoFocus required value={form.email} onChange={(e)=>{handleFormEdit(e,'email');
-        
-         localStorage.setItem("email",e.target.value); 
-        }
-        }/>
+        <input type="email" id="email" className="fadeIn second" name="cadastro" placeholder="E-mail" autoFocus required value={form.email} onChange={(e)=>{handleFormEdit(e,'email'),localStorage.setItem("email",e.target.value)}}/>
         <input type="text" id="login" className="fadeIn second" name="cadastro" placeholder="Username" required value={form.username} onChange={(e)=>{handleFormEdit(e,'username')}}/>
-        <input type={!isShow ? "password" : "text"} id="senha" className="fadeIn second" name="cadastro" placeholder="Senha" required value={form.password} onChange={(e)=>{handleFormEdit(e,'password')
-
-        }}/>
+        <input type={!isShow ? "password" : "text"} id="senha" className="fadeIn second" name="cadastro" placeholder="Senha" required value={form.password} onChange={(e)=>handleFormEdit(e,'password')}/>
         {
           !isShow ? <button className="visibility" onClick={(e)=>editShow(e)}><Eye/></button> : <button className="visibility" onClick={(e)=>editShow(e)}><EyeOff/></button>
+        }
+
+        <input type={!isShow2 ? "password" : "text"} id="senhaVerificador" className="fadeIn second" name="cadastro" placeholder="Confirme a senha" required value={form.passwordVerified} onChange={(e)=>handleFormEdit(e,"passwordVerified")}/>
+        {
+        !isShow2 ? <button className="visibility" onClick={(e)=>editShow2(e)}><Eye/></button> : <button className="visibility" onClick={(e)=>editShow2(e)}><EyeOff/></button>
         }
         <input type="text" id="cpf" className="fadeIn second" name="cadastro" placeholder="CPF" required value={form.cpf} onChange={(e)=>{handleFormEdit(e,'cpf')}}/> 
         <input type="submit" className="fadeIn fourth" value="Cadastrar"/>    
@@ -92,11 +97,18 @@ const editShow = (e) =>{
             User already exists
           </div>
         )
+      }
+      {form.password!=form.passwordVerified &&
+        <div className="userError">
+          Senha diferente
+        </div>
         }
+        
+      
       </form>
       
 </div>
 </div>
         </>
     )
-}
+  }

@@ -6,6 +6,7 @@ import Tenis from "./tenis";
 
 const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
+  
   return (
     <>
     <Navbar/>

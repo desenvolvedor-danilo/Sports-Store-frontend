@@ -4,14 +4,47 @@ import NavBar from './navbar';
 import Script from "./Script";
 import Produtos from "./Produtos";
 import ProdutosLancamentos from "./ProdutosLancamento";
+import { useEffect, useState } from 'react';
+
 function MelhorEsporte(){
+const [produto,setProduto] = useState([{
+    categoria:"",
+    edicao:"",
+    nome:"",
+    caminho:"",
+    precoAntigo:"",
+    precoNovo:"",
+    desconto:"",
+    parcelado:"",
+    valorParcela:""    
+
+}])
+    useEffect(()=>{
+        fetch("http://localhost:8080/admin/findall",{
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"}
+
+        }).then((res)=>res.json())
+        .then(((dado)=>setProduto(dado))).then(()=>{
+
+            let size = produto.length
+            for(let i = 0;i<=size;i++){
+                produto.push(i);
+            }    
+        })
+    },[])
+    
     return(
         <>
         <NavBar/>
         <div className="corra-com-dkmodas">  
-            <ProdutosLancamentos target="/nikerevolution" img={<Image src={require("./imagens/download.jpeg")} alt="Tênis nike revolution 7"/>} nome="Tênis nike revolution 7 - Masculino" edicao="Lançamento" precoAntigo="R$ 399,99" precoNovo="R$ 299,99 no pix" outrasCores="Mais opções de cores"/>
-            <ProdutosLancamentos target="/mizunowave" img={<Image src={require("./imagens/images.jpeg")} alt="Mizuno wave dinasty 6"/>} nome="Tênis mizuno wave dynasty 6 - Feminino" edicao="Lançamento" precoAntigo="R$ 499,99" precoNovo="R$ 314,99 no pix" parcelado="ou 4x de R$ 87,50 " outrasCores="Mais opções de cores"/>         
-            <ProdutosLancamentos target="/literacer" img={<Image src={require("./imagens/images (1).jpeg")} alt="tenis lite racer 3.0"/>} nome="Tênis adidas Liter Racer 3.0 - Masculino" edicao="Lançamento" precoAntigo="R$ 349,99" precoNovo="R$ 206,99 no pix" parcelado="ou 3x de R$ 76,66 " outrasCores="Mais opções de cores"/>
+            {
+                produto.map((item,index)=>(
+                
+                    <ProdutosLancamentos key={index} target="/nikerevolution" img={<Image src={item.caminho} alt="Tênis nike revolution 7" width={100} height={100}/>} nome={item.nome} edicao={item.edicao} precoAntigo={parseFloat(item.precoAntigo).toString().replace(".",",")} precoNovo={parseFloat(item.precoNovo).toString().replace(".",",")+" no pix"} outrasCores="Mais opções de cores" desconto={`-${parseInt(item.desconto)}%`} parcelado={item.parcelado!=1 ? "ou "+item.parcelado+"x de R$"+parseFloat(item.valorParcela).toFixed(2).replace(".",","):""}/>
+                ))
+            }
+            {/* <ProdutosLancamentos target="/mizunowave" img={<Image src={produto[1].caminho} alt="Mizuno wave dinasty 6" width={70} height={65}/>} nome="Tênis mizuno wave dynasty 6 - Feminino" edicao="Lançamento" precoAntigo="R$ 499,99" precoNovo="R$ 314,99 no pix" parcelado="ou 4x de R$ 87,50 " outrasCores="Mais opções de cores"/>          */}
+            {/* <ProdutosLancamentos target="/literacer" img={<Image src={require("./imagens/images (1).jpeg")} alt="tenis lite racer 3.0"/>} nome="Tênis adidas Liter Racer 3.0 - Masculino" edicao="Lançamento" precoAntigo="R$ 349,99" precoNovo="R$ 206,99 no pix" parcelado="ou 3x de R$ 76,66 " outrasCores="Mais opções de cores"/>
             <ProdutosLancamentos target="/agasalho-oxer" img={<Image src={require("./imagens/984844IJ.jpeg")} alt="agasalho oxer"/>} nome="Conjunto de Agasalho Oxer Feminino" edicao="Lançamento" precoAntigo="R$ 199,99" precoNovo="R$ 125,99 no pix" outrasCores="Mais opções de cores"/>
             <Produtos target="/nike-zoom" img={<Image src={require("./imagens/nike zoom fundo branco.jpeg")} alt="nike zoom"/>} nome="Tênis Nike Air Zoom Tr 1 - Masculino" precoAntigo="R$ 899,99" precoNovo="R$ 519,99 no pix" parcelado="ou 7x de R$ 74,28" cor="Cor única"/>
             <Produtos target="/chuteira-nike" img={<Image src={require("./imagens/M0XF1Y08.jpeg")} alt="chuteira nike"/>} nome="Chuteira Society Nike Phantom GX Academy - Adulto" precoAntigo="R$ 699,99" precoNovo="R$ 339,99 no pix" parcelado="ou 4x de R$ 85,00" cor="Cor única"/>
@@ -23,7 +56,7 @@ function MelhorEsporte(){
             <Produtos target="/dinasty5" img={<Image src={require("./imagens/M0N8AS02.jpeg")} alt="Mizuno cool ride"/>} nome="Tênis Mizuno Cool Ride - Masculino" precoAntigo="R$ 349,99" precoNovo="R$ 229,99 no pix" parcelado="ou 3x de R$ 76,66" cor="Cor única"/>
             <Produtos target="/cool-ride" img={<Image src={require("./imagens/mizuno.jpeg")} alt="mizuno"/>} nome="Tênis Mizuno Wave Dynasty 5 - Masculino" precoAntigo="R$ 499,99" precoNovo="R$ 279,99 no pix" parcelado="ou 3x de R$ 93,33" cor="Cor única"/>
             <Produtos target="/cool-ride2" img={<Image src={require("./imagens/mizzuno cool.jpeg")} alt="mizzuno cool"/>} nome="Tênis Mizuno Cool Ride - Masculino" precoAntigo="R$ 349,99" precoNovo="R$ 229,99 no pix" parcelado="ou 3x de R$ 76,66" cor="Cor única"/>
-            <Produtos target="/rapidmove" img={<Image src={require("./imagens/didas rapidmove.jpeg")} alt="adidas rapidmove"/>} nome="Tênis adidas Rapidmove Adv - Masculino" precoAntigo="R$ 799,99" precoNovo="R$ 479,99 no pix" parcelado="ou 6x de R$ 80,00" cor="Cor única"/>
+            <Produtos target="/rapidmove" img={<Image src={require("./imagens/didas rapidmove.jpeg")} alt="adidas rapidmove"/>} nome="Tênis adidas Rapidmove Adv - Masculino" precoAntigo="R$ 799,99" precoNovo="R$ 479,99 no pix" parcelado="ou 6x de R$ 80,00" cor="Cor única"/> */}
             <Script/>
             </div>
         </>
