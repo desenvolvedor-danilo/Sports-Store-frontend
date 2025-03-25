@@ -4,6 +4,7 @@ import Request from "./request"
 import { useContext, useEffect, useState } from "react"
 import { Context } from "./contexto/UserContext"
 import Refresh from "./refresh"
+import SearchBar from "./SearchBar"
 
 export default function Navbar(){
   useEffect(()=>{
@@ -14,8 +15,26 @@ export default function Navbar(){
     setIsLogado(false);
     localStorage.clear()
   }
+  const [open, setOpen] = useState(false);
+  
+  const onOpen = () => setOpen(true);
+  
+  useEffect(() => {
+      if (open) {
+          document.body.style.paddingRight = "0px";
+          document.body.style.overflowY = "scroll";
+      } else {
+          document.body.style.paddingRight = "0px";
+          document.body.style.overflowY = "scroll";
+      }
+      // Clean up the style when the component unmounts
+      return () => {
+          document.body.style.paddingRight = "0px";
+          document.body.style.overflowY = "scroll";
+      };
+  }, [open]);
     return(
-        <>
+        <main>
         <nav className="navbar navbar-dark bg-dark fixed-top" id="navegar">
         <div className="container-fluid">
           
@@ -53,18 +72,20 @@ export default function Navbar(){
                 <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div className="offcanvas-body">
+                <SearchBar/>
                 <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li className="nav-item">
-                    <Link className="nav-link active" href="/">Home</Link>
+                    <Link className="nav-link active" href="/" onClick={onOpen}>Home</Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" href="/sobre">Quem somos</Link>
                   </li>
-                    <li className="nav-item dropdown">
-                      <Link className="nav-link dropdown-toggle" href="/masculino" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li className="nav-item">
+                      <Link className="nav-link" href="/masculino" role="button" aria-expanded="false" onClick={onOpen}>
                         Moda masculina
                       </Link>
-                      <ul className="dropdown-menu dropdown-menu-dark">
+                      </li>
+                      {/* <ul className="dropdown-menu dropdown-menu-dark">
                         <li><Link className="dropdown-item" href="/camisas">Camisas</Link></li>
                         <li><hr className="dropdown-divider"/></li>
                         <li><Link className="dropdown-item" href="/camisetas">Camisetas</Link></li>
@@ -75,12 +96,13 @@ export default function Navbar(){
                         <li><hr className="dropdown-divider"/></li>
                         <li><Link className="dropdown-item" href="/sapatos">Sapatos</Link></li>
                       </ul>
-                      </li>
-                    <li className="nav-item dropdown">
-                      <Link className="nav-link dropdown-toggle" href="/feminina" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      </li> */}
+                    <li className="nav-item">
+                      <Link className="nav-link" href="/feminino" role="button"  aria-expanded="false">
                         Moda feminina
                       </Link>
-                    <ul className="dropdown-menu dropdown-menu-dark">
+                      </li>
+                    {/* <ul className="dropdown-menu dropdown-menu-dark">
                       <li><Link className="dropdown-item" href="/camisasfemininas">Camisas</Link></li>
                       <li><hr className="dropdown-divider"/></li>
                       <li><Link className="dropdown-item" href="/camisetasfemininas">Camisetas</Link></li>
@@ -93,12 +115,13 @@ export default function Navbar(){
           
                         <li><hr className="dropdown-divider"/></li>
                         </ul>
-                        </li>
+                        </li> */}
                         <li>
-                        <Link className="nav-link dropdown-toggle" href="/infantil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <Link className="nav-link" href="/infantil" role="button"  aria-expanded="false">
                           Moda infantil
                         </Link>
-                      <ul className="dropdown-menu dropdown-menu-dark">
+                        </li>
+                      {/* <ul className="dropdown-menu dropdown-menu-dark">
                         <li><Link className="dropdown-item" href="/camisasinfantis">Camisas</Link></li>
                         <li><hr className="dropdown-divider"/></li>
                         <li><Link className="dropdown-item" href="/camisetasinfantis">Camisetas</Link></li>
@@ -108,14 +131,14 @@ export default function Navbar(){
                         <li><Link className="dropdown-item" href="/tenisinfantis">Tênis</Link></li>
                         <li><hr className="dropdown-divider"/></li>
                         <li><Link className="dropdown-item" href="/sapatosinfantis">Sapatos</Link></li>
-                    </ul>
-                  </li>
+                    </ul> */}
+                  
                 </ul>
                 <Refresh/>
               </div>
             </div>
           </div>
         </nav>
-        </>
+        </main>
     )
 }

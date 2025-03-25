@@ -1,14 +1,17 @@
+import { Context } from "@/pages/contexto/UserContext"
 import Image from "next/image"
 import { useState } from "react"
-
+// import { useContext } from "react"
 export default function InsertBase(){
+// const {handleProductEdit,handleProduct,handleFoto,image,setImage,produto}=useContext(Context);
+    const [image,setImage] = useState(null);
     const [produto,setProduto] = useState({
     id:"",
     codigo:"",
     categoria:"",
     edicao:"",
     nome:"",
-    caminho:"/imagens/",
+    nomeImagem:"",
     precoAntigo:"",
     precoNovo:"",
     parcelado:""
@@ -18,15 +21,40 @@ export default function InsertBase(){
             [type]:e.target.value
         })
     }
+    const handleFoto = () =>{
+    const formData = new FormData();
+    formData.append("file",image)
+    fetch("http://localhost:8080/admin/insert-img",{
+            method:"POST",
+            body:formData,
+            dataType:"jsonp"
+        }).then((res)=>res.text())
+          .then((data)=>setProduto({nomeImagem:data}))}
+       
+    const handleReset =()=>{
+    setImage(null)
+    setProduto({
+    codigo:"",
+    categoria:"",
+    edicao:"",
+    nome:"",
+    nomeImagem:"",
+    precoAntigo:"",
+    precoNovo:"",
+    parcelado:""
+    })}
     
-    const handleProduct = (e) =>{
+    const handleProduct = async (e) =>{
         e.preventDefault();
-        fetch("http://localhost:8080/admin/insert",{
+        const formData = new FormData();
+        formData.append("file",image)
+        await fetch("http://localhost:8080/admin/insert",{
         method:"POST",
         headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"},
         body:JSON.stringify(produto)
-        }).then(res=>console.log(res.text()))
-        .catch(error=>console.log(error))
+        }).then(res=>console.log(res.text())).then(()=>handleReset())
+
+        .catch(error=>console.log(error))        
     }
     return(
         <>
@@ -37,11 +65,13 @@ export default function InsertBase(){
     <h2 id="titulo_admin">Inserir Produtos</h2>
     </div>
     <form onSubmit={handleProduct}>
-    <Image src={produto.caminho} alt="Sua imagem vai aparecer aqui" width={100} height={100}/> 
-    <input type="text" placeholder="Código do produto" name="codigo" value={produto.codigo} onChange={(e)=>{handleProductEdit(e,"codigo")}}/> 
+    <input type="file" onChange={(e)=>setImage(e.target.files[0])} id="upload_imagem" onBlur={handleFoto}/>
+    {
+        image && <Image src={URL.createObjectURL(image)} id="preview_img" alt="Imagem" width={150} height={150}/>
+    }
+    <input type="text" placeholder="Código do produto" name="codigo" value={produto.codigo} onChange={(e)=>{handleProductEdit(e,"codigo")}}/>     
     <input type="text" placeholder="Nome do produto" name="nome" value={produto.nome} onChange={(e)=>{handleProductEdit(e,"nome")}}/>
     <input type="text" placeholder="Valor do produto" name="valor"  value={produto.precoAntigo} onChange={(e)=>{handleProductEdit(e,"precoAntigo")}}/>
-    <input type="text" placeholder="Caminho e nome da imagem" name="imagem" value={produto.caminho} onChange={(e)=>{handleProductEdit(e,"caminho")}}/>
     <input type="text" placeholder="Valor do produto com desconto" name="desconto" value={produto.precoNovo} onChange={(e)=>handleProductEdit(e,"precoNovo")}/>
     <input type="text" placeholder="Edição do produto" name="edicao" value={produto.edicao} onChange={(e)=>handleProductEdit(e,"edicao")}/>
     <input type="text" placeholder="Categoria" name="categoria" value={produto.categoria} onChange={(e)=>{handleProductEdit(e,"categoria")}}/>

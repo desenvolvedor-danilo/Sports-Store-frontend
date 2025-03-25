@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Navbar from "./navbar";
 import Slide from "./slide";
 import Tenis from "./tenis";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
