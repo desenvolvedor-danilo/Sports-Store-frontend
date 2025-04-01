@@ -29,8 +29,8 @@ export default function SlideEdit() {
                                 <h2 id="titulo_admin">Editar Slides</h2>
                             </div>
                             <form onSubmit={handleFoto}>
-                                <input type="text" onChange={(e) => setSlide({ codigo: e.target.value })} placeholder="Digite o código do produto" />
-                                <input type="file" id="upload_imagem" onChange={(e) => setImage(e.target.files[0])} />
+                                <input id="input_slide_grande" type="text" onChange={(e) => setSlide({ codigo: e.target.value })} placeholder="Digite o código do produto" />
+                                <input type="file" id="upload_imagem" onChange={(e) => setImage(e.target.files[0])}/>
                                 <input id="input-button" type="submit" value="Salvar" />
                             </form>
                         </div>

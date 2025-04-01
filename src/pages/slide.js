@@ -28,19 +28,12 @@ export default function Slide(){
             , Pagination, Autoplay
         ]} className={styles.swiper_container} slidesPerView={1} slidesPerGroup={1} navigation={true} pagination={{clickable:true}} autoplay={{delay:5000}} loop={true}>
            {
-            produto.map((slide,index)=>(
-                
+            produto.map((slide,index)=>(   
                 <SwiperSlide className={styles.slide_item}>
-                <Link href="/melhor-esporte"><Image key={index} className={styles.img_slide} src={slide.foto} width={2880} height={750} alt='imagem promoção'/> </Link>
+                <Link href="/melhor-esporte"><Image key={index} className={styles.img_slide} src={slide.foto} width={1920} height={500} alt='imagem promoção'/> </Link>
                 </SwiperSlide>        
             ))
            } 
-        {/* <SwiperSlide className={styles.slide_item}>
-        <Link href="/melhor-esporte"><Image className={styles.img_slide} src={require('./imagens/desk_1400x400.jpg')} alt='imagem promoção'/> </Link>
-        </SwiperSlide>
-        <SwiperSlide className={styles.slide_item}>
-        <Link href="/melhor-esporte"><Image className={styles.img_slide} src={require('./imagens/Desk_1400x400_V2.jpg')} alt=""/></Link>
-        </SwiperSlide> */}
         </Swiper>
         </>
     )

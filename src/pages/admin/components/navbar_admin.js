@@ -1,4 +1,5 @@
 import { Context } from "@/pages/contexto/UserContext";
+import { BadgePlus, CircleMinus, CirclePlus, ClipboardList, LogInIcon, LogOut, Minus, Pen, Plus, Settings } from "lucide-react";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
@@ -16,27 +17,27 @@ export default function NavbarAdmin(){
         <>
         <h1 id="titulo_centralizado">Painel administrativo</h1>
         <aside id="nav">
-        <Link href="./painel_administrativo" className="crud_produtos">{isLogado ? "Dashboard":"Login"}</Link>
+        <Link href="./painel_administrativo" className="crud_produtos">{isLogado ? "Dashboard":<LogInIcon size={40}/>}</Link>
         {/* <Link href="./insert_fotos" className="crud_produtos">Upload de fotos</Link> */}
         <hr className="blocos"/>
         <h1 className="titulo_painel_admin">Produtos</h1>
-        <Link href="./insert_product" className="crud_produtos">Inserir produto</Link>
-        <Link href="./drop_product" className="crud_produtos">Excluir produto</Link>
-        <Link href="./edit_product" className="crud_produtos">Editar produto</Link>
-        <Link href="./insert_deal" className="crud_produtos">Produtos cadastradas</Link>
+        <Link href="./insert_product" className="crud_produtos"> <Plus size={40}/></Link>
+        <Link href="./drop_product" className="crud_produtos">   <Minus size={40}/></Link>
+        <Link href="./edit_product" className="crud_produtos">   <Pen size={40}/></Link>
+        <Link href="./insert_deal" className="crud_produtos">    <ClipboardList size={40}/></Link>
         <hr/>
         <h1 className="titulo_painel_admin">Ofertas</h1>
-        <Link href="./insert_deal" className="crud_produtos">Criar oferta</Link>
-        <Link href="./drop_product" className="crud_produtos">Excluir oferta</Link>
-        <Link href="./edit_product" className="crud_produtos">Editar oferta</Link>
-        <Link href="./insert_deal" className="crud_produtos">Ofertas cadastradas</Link>
+        <Link href="./insert_deal" className="crud_produtos"><Plus size={40}/></Link>
+        <Link href="./drop_product" className="crud_produtos"><Minus size={40}/></Link>
+        <Link href="./edit_product" className="crud_produtos"><Pen size={40}/></Link>
+        <Link href="./insert_deal" className="crud_produtos"><ClipboardList size={40}/></Link>
         <hr/>
         <h1 className="titulo_painel_admin">Slides</h1>
-                <Link href="./insert_slides" className="crud_produtos">Criar slide</Link>
-                <Link href="./editar-slide" className="crud_produtos">Editar slide</Link>
+                <Link href="./insert_slides" className="crud_produtos"><Plus size={40}/></Link>
+                <Link href="./editar-slide" className="crud_produtos"><Pen size={40}/></Link>
         <hr/>
-        <Link href="" className="crud_produtos">Configurações</Link>
-        <Link href="./painel_administrativo" className="crud_produtos" onClick={()=>logout()}>Logout</Link>
+        <Link href="" className="crud_produtos"><Settings size={50}/></Link>
+        <Link href="./painel_administrativo" className="crud_produtos" onClick={()=>logout()}><LogOut size={40}/></Link>
         </aside>
         </>
     )
