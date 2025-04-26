@@ -6,11 +6,14 @@ import Image from 'next/image';
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Context } from './contexto/UserContext';
 export default function Slide(){
+    const {header} = useContext(Context);
     const [produto, setProduto] = useState([{"foto":""}]);
     useEffect(()=>{
-        fetch("http://localhost:8080/admin/list-slides",{
+        fetch("http://100.71.232.95:8080/admin/list-slides",{
+         headers:header   
         }).then((res)=>res.json())
         .then((dado)=>setProduto(dado)).then(()=>{
             

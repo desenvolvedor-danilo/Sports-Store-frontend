@@ -48,10 +48,11 @@ Link:hover{
           color: red;
           font-size: 1.2em;
         }
-        .dropdown-menu-dark .dropdown-item:hover{
+        .dropdown-item:hover{
           color: rgba(0, 0, 255, 0.692);
-          font-weight: bolder;
+          font-weight: bolder
         }
+      
         .navbar-dark .navbar-nav .nav-link{
           color: red;
         }
@@ -568,8 +569,6 @@ Link:hover{
     transition: width 0.2s;
   }
 
-  
-  
   #cadastro:hover {
     color: #0d0d0d;
   }

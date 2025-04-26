@@ -948,7 +948,7 @@ label{
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-left-color:transparent;
-  height: auto;
+  height: 1080px;
   margin-top: -8px;
 }
 .crud_produtos{
@@ -979,12 +979,12 @@ label{
 }
 
 
-.container_pages{
-  width: fit-content;
-  left:31.5%;
-  top:11.8%;
+.container_pages.admin{
+  display: block;
+  width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
   height: fit-content;
-  position: absolute;
 }
 #titulo_admin{
 color: gray;
@@ -1002,7 +1002,6 @@ color: gray;
 #center{
   margin-left: auto;
   margin-right: auto;
-  width: 80%;  
   color:gray
 }
 #center>p{
@@ -1014,7 +1013,7 @@ color: gray;
     border-radius: 10px 10px 10px 10px;
     background: #fff;
     padding: 30px;
-    width: 90%;
+    width: 90vw;
     
     max-width: 450px;
     position: relative;

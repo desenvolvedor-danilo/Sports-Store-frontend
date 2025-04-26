@@ -3,6 +3,7 @@ import NavbarAdmin from "./components/navbar_admin";
 import InsertBase from "./components/insert_base";
 import { useEffect, useState } from "react";
 import NotLogin from "./components/notlogin";
+import NavbarCrud from "./components/navbar_crud";
 export default function InsertProduct(){
     const [isLogado,setIsLogado] = useState();
     useEffect(()=>{
@@ -12,12 +13,11 @@ export default function InsertProduct(){
     return(
         
         <>
-        <Navbar/>
+        <NavbarCrud/>
         {/* {
             !isLogado &&
             <NotLogin/>
         } */}
-        <NavbarAdmin/>
         
             
             <InsertBase/>

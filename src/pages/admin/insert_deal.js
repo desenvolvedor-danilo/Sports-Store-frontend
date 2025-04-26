@@ -1,12 +1,10 @@
-import Navbar from "../navbar";
 import DealBase from "./components/deal_base";
-import NavbarAdmin from "./components/navbar_admin";
+import NavbarCrud from "./components/navbar_crud";
 
 export default function InsertDeal(){
     return(
         <>
-        <Navbar/>
-        <NavbarAdmin/>
+        <NavbarCrud/>
         <DealBase/>
         </>
     )

@@ -4,6 +4,7 @@ import NavbarAdmin from "./components/navbar_admin";
 import NotLogin from "./components/notlogin";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../contexto/UserContext";
+import NavbarCrud from "./components/navbar_crud";
 
 export default function DropProduct(){
     const [isLogado,setIsLogado] = useState();
@@ -13,16 +14,15 @@ export default function DropProduct(){
     
     return(
         <>
-        <Navbar/>
-
-        {
+        <NavbarCrud/>
+        <DropBase/>
+        {/* {
         !isLogado && 
         <NotLogin/>
         }
-        <NavbarAdmin/>
         {isLogado &&
         <DropBase/>
-        }
+        } */}
         </>
     )
 }

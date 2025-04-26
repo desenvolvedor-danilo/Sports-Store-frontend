@@ -8,17 +8,28 @@ export default function DealBase(){
     nome:"",
     valor:""    
     })
+    const [images,setImages] = useState([])
     const handleDealEdit = (e,type)=>{
         setOferta({...oferta,
             [type]:e.target.value
         })
     }
+    const handleImagensEdit = (e) =>{
+        setImages([...e.target.files])
+    }
     const handleDeal = (e)=>{
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("titulo",oferta.titulo)
+        formData.append("nome",oferta.nome)
+        formData.append("valor",oferta.valor)
+        images.forEach((image)=>{
+            formData.append("imagens",image)
+        })
+        
         fetch("http://localhost:8080/deal/create",{
             method:"POST",
-            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"http://localhost:8080"},
-            body:JSON.stringify(oferta)
+            body:formData            
         }).then((res)=>console.log(res.text()))
         .catch((error)=>console.log(error))
     }
@@ -31,9 +42,8 @@ export default function DealBase(){
     <h2 id="titulo_admin">Inserir Produtos</h2>
     </div>
     <form onSubmit={handleDeal} >
-    <input type="text" placeholder="ID da oferta" name="id" value={oferta.id} onChange={(e)=>handleDealEdit(e,"id")}/>
+    <input type="file" multiple placeholder="Caminho para as fotos" name="caminho" accept="image/*" onChange={handleImagensEdit}/>
     <input type="text" placeholder="Titulo da oferta" name="titulo" value={oferta.titulo} onChange={(e)=>handleDealEdit(e,"titulo")}/>
-    <input type="text" placeholder="Caminho para as fotos" name="caminho" value={oferta.caminhoFoto} onChange={(e)=>handleDealEdit(e,"caminhoFoto")}/>
     <input type="text" placeholder="Nome do produto em oferta" name="oferta" value={oferta.nome} onChange={(e)=>handleDealEdit(e,"nome")}/>
     <input type="text" placeholder="Valor do produto em oferta" name="valor" value={oferta.valor} onChange={(e)=>handleDealEdit(e,"valor")}/>
     <input type="submit" value="Salvar"/>

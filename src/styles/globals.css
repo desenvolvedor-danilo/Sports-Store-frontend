@@ -127,6 +127,33 @@ object{
     margin-right: 10px;
   }
 }
+@keyframes decrescer{
+  0%{
+    width: 0;
+  }
+  15%{
+    width: 20px;
+  }
+  30%{
+    width: 40px;
+  }
+  45%{
+    width: 60px;
+  }
+  60%{
+    width: 80px;
+  }
+  75%{
+    width: 100px;
+  }
+  90%{
+    width: 120px;
+  }
+  100%{
+    width: 140px;
+  }
+}
+
  element.style{
   display: none;
   overflow: hidden;
@@ -155,9 +182,9 @@ object{
   text-align: center;
 }
 .userCreated{
-  background-color: #212529;
-  
-  color: #56BAED;
+  background-color: transparent;  
+  /* color: #56BAED; */
+  color: green;
   font-weight:bolder;
   animation-name: vibrar;
   animation-duration: 0.1s;
@@ -165,8 +192,13 @@ object{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  animation-name:vibrar;
-  animation-duration: 0.1s;
+}
+.linha-decrescente{
+  display: none;
+  border-top:2px solid #212529;
+  animation: 10s decrescer infinite linear;
+  margin-left: 44.3%;
+  width: 140px;
   
 }
 .voltar_login{
@@ -257,12 +289,13 @@ h1.titulo_painel_admin:nth-child(9){
 h1.titulo_painel_admin:nth-child(15){
   margin-left: 48px;
 }
-div#formContentAdmin{
+/* div#formContentAdmin{
+margin-top: 5vh;
 width: max-content;
 padding: 10px;
 margin-left: auto;
 margin-right: auto;
-}
+} */
 #input_slide_grande{
   width: 31vw;
   margin-bottom: 30px;
@@ -277,5 +310,105 @@ margin-right: auto;
   margin-right: auto;
   margin-top: 40px;
 }
+.container_table{
+  width: fit-content;
+  height: fit-content;
+}
+.titlePages{
+  display: table-column;
+}
+.titlePages:nth-child(5){
+  width: fit-content;
+  display: inline-block;
+  position: absolute;
+  left: 35.88vw;
+  font-size: 1.3em;
+  top:30vh;
+}
+.table{
+  margin-left:auto;
+  margin-right: auto;
+  table-layout:fixed;
+  width: 95vw;
+  text-align: center;
+  margin-bottom: 0;
+  height: 8vh;
+}
+th,td{
+  border: 1px solid;
+}
+.tableHead{
+  table-layout: fixed;
+  width: 95vw;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2vw;
+}
+.col{
+  text-align: center;
+}
+.Paginacao{
 
+  width: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;  
+}
+.buttonPage{
+  background-color: transparent;  
+  width: 4vw;
+  margin-right: 0.5vw;
+  margin-top: 5vh;
+  border-radius: 0.5vw;
+}
+.buttonPage:hover{
+  background-color: #56BAED;
+}
+#navegacao{
+  display: block;
+}
+#navbar-crud{
+text-align:left;
 
+}
+.offcanvas.offcanvas-end.text-bg-dark.crud{
+  width: 15vw;
+  
+}
+@media(max-width:500px){
+  .offcanvas.offcanvas-end.text-bg-dark.crud{
+    width: 50vw;
+    
+  }
+}
+.wrapper.fadeInDown.admin{
+  width: 100vw;
+  margin-left:auto;
+  margin-right: auto;
+}
+label {
+  font:
+    1rem "Fira Sans",
+    sans-serif;
+}
+legend{
+  font-size: 1.1rem;
+  color: #767676;
+}
+fieldset{
+  background-color: #F6F6F6;
+  width: 85%;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.categoria{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  margin-bottom: 2cqmin;
+  width: 38%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}

@@ -2,8 +2,8 @@
 import Navbar from "../navbar";
 import { useEffect, useState } from "react";
 import LoginAdministrativo from "./components/login_admin";
-import Grafics from "./components/edit_product";
 import NavbarAdmin from "./components/navbar_admin";
+import NavbarCrud from "./components/navbar_crud";
 export default function Painel(){
     
     const [isLogado,setIsLogado] = useState();
@@ -14,12 +14,8 @@ export default function Painel(){
     
     return(
         <>
-        <Navbar/>
-        <NavbarAdmin/>
-        {
-        isLogado ?
-        <Grafics/>:<LoginAdministrativo/>
-        }
+        <NavbarCrud/>
+        <LoginAdministrativo/>
         </>
     )
 }

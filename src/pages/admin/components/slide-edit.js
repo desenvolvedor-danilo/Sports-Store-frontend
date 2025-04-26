@@ -18,7 +18,7 @@ export default function SlideEdit() {
             method: "PUT",
             body: formData,
             dataType: "jsonp"
-        }).then((res) => setStatus(res.status))
+        }).then((res) => console.log(res.status))
     }
         return (
             <>

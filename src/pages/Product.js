@@ -6,6 +6,8 @@ const { default: Navbar } = require("./navbar");
 
 export default function Product({endpoint,nameParam,categoria}){
     const [produto,setProduto] = useState([{
+        id:"",
+        codigo:"",
         categoria:"",
         edicao:"",
         nome:"",

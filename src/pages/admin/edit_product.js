@@ -4,6 +4,7 @@ import NotLogin from "./components/notlogin";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../contexto/UserContext";
 import EditBase from "./components/edit_base";
+import NavbarCrud from "./components/navbar_crud";
 
 export default function EditProduct(){
     const [isLogado,setIsLogado] = useState();
@@ -12,16 +13,8 @@ export default function EditProduct(){
     },[setIsLogado,isLogado])
     return(
         <>
-        <Navbar/>
-        {
-         !isLogado &&
-         <NotLogin/>   
-        }
-        <NavbarAdmin/>
-        {
-        isLogado && 
+        <NavbarCrud/>
         <EditBase/>
-        }
         </>
     )
 }

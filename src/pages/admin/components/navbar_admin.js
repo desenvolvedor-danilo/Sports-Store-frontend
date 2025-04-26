@@ -1,4 +1,3 @@
-import { Context } from "@/pages/contexto/UserContext";
 import { BadgePlus, CircleMinus, CirclePlus, ClipboardList, LogInIcon, LogOut, Minus, Pen, Plus, Settings } from "lucide-react";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
@@ -24,7 +23,7 @@ export default function NavbarAdmin(){
         <Link href="./insert_product" className="crud_produtos"> <Plus size={40}/></Link>
         <Link href="./drop_product" className="crud_produtos">   <Minus size={40}/></Link>
         <Link href="./edit_product" className="crud_produtos">   <Pen size={40}/></Link>
-        <Link href="./insert_deal" className="crud_produtos">    <ClipboardList size={40}/></Link>
+        <Link href="./getall-products" className="crud_produtos"><ClipboardList size={40}/></Link>
         <hr/>
         <h1 className="titulo_painel_admin">Ofertas</h1>
         <Link href="./insert_deal" className="crud_produtos"><Plus size={40}/></Link>
