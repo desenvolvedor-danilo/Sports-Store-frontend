@@ -4,12 +4,32 @@ const nextConfig = {
   images: {
         remotePatterns: [
           {
+            protocol: "https",
+            hostname: "platform-lookaside.fbsbx.com",
+            pathname: "**",
+            port:'',
+            search: ''
+          },
+          // {
+          //   protocol:'https',
+          //   hostname: 'scontent-bsb1-1.xx.fbcdn.net',
+          //   pathname:'**',
+          //   port:'',
+          //   search: ''    
+          // },
+          {
             protocol: 'http',
             hostname: 'localhost',
             port: '8080',
             pathname: '/files/**',
             search: '',
           },
+          {
+            protocol:"https",
+            hostname: "lh3.googleusercontent.com",
+            search: ''
+          },
+             
           
         ],
       }

@@ -20,10 +20,12 @@ Link:hover{
   text-decoration: none;
 }
 
-        .offcanvas-body{
-            background-color:black;
-            font-size: 1.4em;
-        }
+.offcanvas-body{
+background-color:black;
+font-size: 1.4rem;
+}
+            
+        
     /*barra de navegação começa aqui*/
         
         #offcanvasDarkNavbar > div.offcanvas-body > ul > li.nav-item.dropdown > ul{
@@ -32,7 +34,7 @@ Link:hover{
         }
         
         .offcanvas-header{
-          display: block;
+          
           color:black;
           background-color: white;
         }
@@ -76,11 +78,11 @@ Link:hover{
         /*termina aqui a barra de navegação*/
 
         /* Tela home começa aqui */
-        section{
+        /* section{
           display: block;
           width: 100%;
           margin: auto;
-        }
+        } */
         /* .teste{
           overflow-x: hidden;
         } */
@@ -332,7 +334,33 @@ Link:hover{
     -ms-transform: scale(0.95);
     transform: scale(0.95);
   }
-  
+  #desc{
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+  }
+  #desc:focus {
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+  }
+  #desc:placeholder {
+    color: #cccccc;
+  }
   input[type=text] {
     background-color: #f6f6f6;
     border: none;
@@ -836,4 +864,25 @@ position: absolute;
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.568);
 }
+
+}
+.btn-close.btn-close-black{
+flex: auto;
+margin-top: -30px;
+float: right;
+}
+#input-invisivel{
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  display: none;
+}
+#label-input-invisivel{
+  width: 5%;
+  height: 5%;
+  display: inline-block;
+  margin-right: 5%;
+}
+#label-input-invisivel:hover{
+  cursor: pointer;
 }

@@ -5,21 +5,8 @@ import ProdutosLancamentos from "./ProdutosLancamento";
 import Image from "next/image";
 
 export default function Search(){
-    //const [search,setSearch]=useState("");
-    const [produto,setProduto] = useState([{
-        categoria:"",
-        edicao:"",
-        nome:"",
-        nomeImagem:"",
-        precoAntigo:"",
-        precoNovo:"",
-        desconto:"",
-        parcelado:"",
-        valorParcela:""    
-    
-    }])
+    const [produto,setProduto] = useState([])
     useEffect(()=>{
-        
         fetch("http://localhost:8080/admin/search?find="+localStorage.getItem("key")).then((res)=>res.json()).then((dado)=>setProduto(dado))
         .then(()=>{
     
@@ -28,7 +15,8 @@ export default function Search(){
                 produto.push(i);
             }    
         })
-    },[localStorage.getItem("key")])
+
+    },[produto])
     return(
         <>
         <Navbar/>

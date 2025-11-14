@@ -11,6 +11,7 @@
   "dependencies": {
     "apexcharts": "^4.1.0",
     "bootstrap": "^5.3.4",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.452.0",
     "next": "^14.2.15",
     "nextjs": "^0.0.3",

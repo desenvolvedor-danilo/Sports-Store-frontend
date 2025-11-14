@@ -12,7 +12,7 @@ export default function Slide(){
     const {header} = useContext(Context);
     const [produto, setProduto] = useState([{"foto":""}]);
     useEffect(()=>{
-        fetch("http://100.71.232.95:8080/admin/list-slides",{
+        fetch("http://localhost:8080/admin/list-slides",{
          headers:header   
         }).then((res)=>res.json())
         .then((dado)=>setProduto(dado)).then(()=>{
@@ -29,11 +29,20 @@ export default function Slide(){
         <>
         <Swiper modules={[Navigation
             , Pagination, Autoplay
-        ]} className={styles.swiper_container} slidesPerView={1} slidesPerGroup={1} navigation={true} pagination={{clickable:true}} autoplay={{delay:5000}} loop={true}>
+        ]} className={styles.swiper_container}  navigation={true} pagination={{clickable:true}} autoplay={{delay:5000}}>
            {
             produto.map((slide,index)=>(   
-                <SwiperSlide className={styles.slide_item}>
-                <Link href="/melhor-esporte"><Image key={index} className={styles.img_slide} src={slide.foto} width={1920} height={500} alt='imagem promoção'/> </Link>
+                <SwiperSlide key={index} className={styles.slide_item}>
+                { slide && slide.foto ?
+                <Link href="/melhor-esporte"><Image  className={styles.img_slide} src={slide.foto} priority width={1920} height={500} alt='imagem promoção'/> </Link>
+                : (
+                    <div className="d-flex justify-content-center ">
+  <div className="spinner-border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </div>
+</div>
+                )
+                }
                 </SwiperSlide>        
             ))
            } 

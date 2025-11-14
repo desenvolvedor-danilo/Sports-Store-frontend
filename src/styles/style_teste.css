@@ -74,11 +74,11 @@ Link:hover{
         /*termina aqui a barra de navegação*/
 
         /* Tela home começa aqui */
-        section{
+        /* section{
           display: block;
           width: 100%;
           margin: auto;
-        }
+        } */
         
         #chamaris{
           display: flex;
@@ -1014,7 +1014,6 @@ color: gray;
     background: #fff;
     padding: 30px;
     width: 90vw;
-    
     max-width: 450px;
     position: relative;
     padding: 0px;
@@ -1040,3 +1039,15 @@ color: gray;
   display: block;
   width: 300px;
 }
+@media (max-width:384px) {
+  #offcanvasDarkNavbar{
+    width: 60vw;
+  }
+}
+  
+
+  /* #offcanvasDarkNavbar > div.offcanvas-body > div > div > div > div > input{
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+  } */

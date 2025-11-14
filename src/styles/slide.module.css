@@ -1,9 +1,11 @@
 .swiper_container{
+    display: flex;
+    
     margin-top: 1px ;
 }
  .img_slide{
     width: 100%;
-    height: auto
- }
- 
- 
+    height: auto;
+    flex: auto;
+
+}          

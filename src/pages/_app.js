@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "@/styles/globals.css";
 import "@/styles/Navbar.css"
+import "@/styles/carrinho.css"
 import "@/styles/style_teste.css"
 import { useEffect } from 'react';
 import ContextProvider from './contexto/UserContext';

@@ -160,6 +160,112 @@ object{
   padding: 0;
 }
 
+.fieldset_upload{
+  padding: 2%;
+  margin-bottom: 5px;
+}
+.container{
+  
+  /* max-width: 1200px; */
+  margin:20px auto;
+  padding: 20px;
+}
+.product-details{
+  display:flex;
+  gap:40px;
+}
+.product-gallery{
+  flex:1;
+}
+.product-gallery img{
+  width:100%;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+.product-info{
+  flex:1;
+}
+.thumbnail-container{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+.thumbnail-container img{
+  width: 60px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+  
+}
+.thumbnail-container img:hover{
+border: 1px solid #39ACE7;
+}
+.product-info h2{
+  color: #555;
+  font-size: 2.5em;
+}
+.product-price{
+  color:#39ACE7;
+  font-size: 2em;
+  margin: 10px 0;
+}
+.product-description{
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #555;
+}
+#size{
+  width: 100px;;
+}
+#quantity{
+  width: 100px;
+}
+.product-options{
+ 
+  margin: 20px 0;
+}
+.product-options label{
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+.product-options select,
+.product-options input{
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color:#f9f9f9;
+}
+.shipping-info{
+  display: flex;
+  gap: 20px;
+}
+.add-to-cart-button{
+  background-color: #39ACE7;
+  color: white;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+
+}
+.add-wishlist{
+  background-color: #39ACE7;
+  color: white;
+  padding: 15px 25px;
+  border: 2px solid #39ACE7;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
 
 .userError{
   color: red;
@@ -239,33 +345,26 @@ object{
   }
 }
 .search-container {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .form-control.search-input {
+  position: relative;
+  flex-basis: 100%;
   height: 35px;
-  border-radius: 50px;
+  border-radius: 40px;
   border: none;
-  width: 350px;
-  margin-left: -100px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.search-icon {
-  position: absolute;
-  top: 50%;
-  left:-20px;
-  transform: translateY(-50%);
-  color: #888;
 }
 .search-button{
   position: absolute;
-  left:125%;
-  width: 50px;
+  right: 105px;
+  margin-top: 4px;
   background-color: transparent;
   border: none;
   text-align: center;
-  top:8%;
   border-radius: 50px;
 }
 #form-slide{
@@ -411,4 +510,31 @@ fieldset{
   margin-left: auto;
   margin-right: auto;
   
+}
+.spinner-border{
+  margin-top: 25%;
+}
+#imagePerfil{
+  border-radius: 50%;
+}
+#imageProfile{
+  border-radius: 50%;
+  cursor: pointer;
+
+}
+#check{
+  display: none;
+}
+.checkbtn{
+  margin-bottom: 0.5%;
+}
+#salvaFoto{
+  background-color: transparent;
+  border:none;
+  color: #56BAED;
+  font-weight: bolder;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }

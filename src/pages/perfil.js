@@ -1,12 +1,16 @@
-import Endereco from "@/requisicoes-internas/endereco";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "./contexto/UserContext";
 import Navbar from "./navbar";
+import Image from "next/image";
+import AutoRefreshToken from "./autorefresh";
+import Request from "./request";
 
 export default function Perfil(){
-  const {editableDados,dadosEditaveis,editableEndereco,enderecoEditavel} = useContext(Context);
+  const {editableDados,dadosEditaveis,editableEndereco,enderecoEditavel,handleError} = useContext(Context);
   const [emailWrap,setEmailWrap] = useState("");
   const [islogado,setIslogado] = useState();
+  const [urlPictureProfile,setUrlPictureProfile] = useState("");
+  const [imageProfile,setImageProfile] = useState(null);  
   const [endereco,setEndereco] = useState({
     cep:'',
     complemento:'',
@@ -24,32 +28,20 @@ export default function Perfil(){
     useEffect(()=>{
      setEmailWrap(localStorage.getItem("email"));
      setIslogado(localStorage.getItem("logado"));
-        const promisse = new Promise((dado)=>{
-            dado(fetch(`http://localhost:8080/user/userinfo?email=${localStorage.getItem("email")}`,{
-              headers:{"Authorization":localStorage.getItem("token")}
-            }).then((res)=>res.json())
-          )      
-          })
-     promisse.then((val)=>{
-        console.log()
-        setForm(
-            {
-                name:val.name,
-                username:val.username,
-                email:val.email,
-                
+            fetch(`http://localhost:8080/user/userinfo?email=${localStorage.getItem("email")}`,{
+            headers:{"Authorization":localStorage.getItem("token")}
+            }).then((res)=>{
+            if(!res.ok){
+              handleError("Erro ao carregar informações do usuário");
             }
-        )
-        setEndereco({
-                cep:val.cep,
-                complemento:val.complemento,
-                logradouro:val.logradouro,
-                bairro:val.bairro,
-                localidade:val.localidade,
-                uf:val.uf,
-        })
-     })   
-    },[emailWrap])
+            return res.json();
+            })
+            .then((dado)=>{setForm(dado)
+              setEndereco(dado)
+            }).catch((err)=>{
+              console.error(err)
+            })
+        },[])      
   const promisse =(e)=>{
     e.preventDefault()
     fetch("http://localhost:8080/user/edit-info",
@@ -102,16 +94,41 @@ export default function Perfil(){
       })
     }).then((res)=>console.log(res.status)).then(()=>enderecoEditavel(e))
   }
+  const handleImage = (e)=>{
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("email",localStorage.getItem("email"));
+    formData.append("file",imageProfile);
+    fetch("http://localhost:8080/user/edit-picture-profile",{
+      method:"POST",
+      body:formData
+    }).then((res)=>console.log(res.text()))
+  }
+  useEffect(()=>{
+  fetch("http://localhost:8080/user/get-picture-profile?email="+localStorage.getItem("email"),{
+    headers:{"Authorization":localStorage.getItem("token")}
+  }).then((res)=>res.text())
+  .then((dado)=>setUrlPictureProfile(dado))
+  .catch((err)=>console.error(err));
+},[]);
+console.log(urlPictureProfile)
     return(
       
         <>
         <Navbar/>
         <div className="wrapper fadeInDown">
+          <input type="file" id="check" onChange={(e)=>setImageProfile(e.target.files[0])}/>
+          <label htmlFor="check" className="checkbtn"><img  src={imageProfile ? URL.createObjectURL(imageProfile):require("./imagens/pngegg.png") || urlPictureProfile ? urlPictureProfile:require("./imagens/pngegg.png")} alt="icone login" width="50" height="50" id="imageProfile"/></label>
+            <i className="fas fa-bars"></i>
+            <button id="salvaFoto" onClick={handleImage}>Salvar</button>
+          
         <div id="formContent">
+          
           <div className="fadeIn first">
             <h1>Perfil</h1>
           </div>
           <h5>Informações Pessoais</h5>
+          
         <form onSubmit={promisse}>
             
             <input type="text"  style={!editableDados ? {color: "gray"}:{color: "black"}} readOnly={!editableDados ? true : false} Value={islogado ? form.name : "" } name="nome" className="fadeIn second perfil" onChange={(e)=>editForm(e,"name")}/>

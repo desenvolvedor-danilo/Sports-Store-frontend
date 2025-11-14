@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Context } from "./contexto/UserContext"
 import { useRouter } from "next/router";
 import Greetins from "./greetins";
-import Link from "next/link";
 export default function Confirm(){
   const [status,setStatus] = useState(true);
   const [timer,setTimer] = useState(60);

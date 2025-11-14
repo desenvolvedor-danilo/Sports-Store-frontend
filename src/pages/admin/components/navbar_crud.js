@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useContext, useEffect, useState } from "react"
-import Refresh from "../../refresh"
+import Refresh from "../../refresh-for-time"
 import { ClipboardList, LogIn, LogOut, Minus, Pen, Plus, Settings } from "lucide-react"
 
 export default function NavbarCrud(){

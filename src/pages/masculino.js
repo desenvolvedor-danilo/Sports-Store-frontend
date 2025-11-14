@@ -1,4 +1,5 @@
 import Product from "./Product";
+import Request from "./request";
 
 export default function Masculino(){
     return(

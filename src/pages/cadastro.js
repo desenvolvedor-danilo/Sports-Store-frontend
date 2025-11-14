@@ -2,9 +2,13 @@ import { useContext, useEffect, useState } from "react"
 import Navbar from "./navbar"
 import { useRouter } from "next/router";
 import { Eye, EyeOff } from "lucide-react";
+import { Context } from "./contexto/UserContext";
 
  export default function Cadastro(){
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [isError,setIsError] = useState(false);
+  const {header,handleError} = useContext(Context)
   const [resp,setResp] = useState();
   const [form,setForm] = useState({
     email:'',
@@ -19,43 +23,50 @@ import { Eye, EyeOff } from "lucide-react";
     bairro:'',
     localidade:'',
     uf:'',
+
   })
   const [isShow,setIsShow] = useState(false);
   const [isShow2,setIsShow2] = useState(false);
+  
   const handleFormEdit = (event,name)=>{
       setForm({...form,
       [name]: event.target.value
     })
   }
+  
   const cepEdit = (ev)=>{
     const cep = ev.target.value.replace(/\D/g, '');
-    console.log(cep);
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then(res=>res.json()
-    .then(data=>{console.log(data)
-    setForm(data); 
-    }
-  ))
-};
+    .then((res)=>  res.json())
+  .then((data)=>{
+      if(data.erro){
+        setIsError(true);
+        throw new Error("Nenhum resultado encontrado para o CEP informado");
+      }else{
+        setIsError(false);
+        setForm(data)
+
+      }
+      }).catch((error)=>setError(error.message))
+  }
+
   const handleForm = async (event)=>{
-    try{
     event.preventDefault();
-       const response = await fetch("http://localhost:8080/user/register",
+       await fetch("http://localhost:8080/user/register",
       {method:'POST',
-       headers:{"Content-Type":"application/json","Access-Control-Allow-Origin":"http//localhost:8080"},
+       headers:header,
        body:JSON.stringify(form)
-      })
-
-     setResp(response.status);
-
-      if(response.status==200){
+      }).then((res)=>{
+        if(!res.ok){
+          setResp(res.status)
+          handleError("Ocorreu um erro durante o cadastro verifique as informações");
+        }
         router.push("/confirm");
-       } 
-        }catch(err){
-      console.log(err);
-    }
-}
-const editShow = (e) =>{
+      }).catch((error)=>setError(error))
+    } 
+
+
+    const editShow = (e) =>{
   e.preventDefault()
   setIsShow(!isShow);
 }
@@ -66,12 +77,17 @@ const editShow2 = (e)=>{
     return(
         <>
           <Navbar/>
+          {
+        isError && (<div className="userNonExist">
+          {error}
+        </div>)
+      }
         <div className="wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
             <h1>Cadastrar-se</h1>
           </div>
-        <form onSubmit={handleForm}>
+        <form onSubmit={handleForm} id="formCadastro" name="cadastro">
         <input type="text" id="cep" className="fadeIn second" name="cadastro" placeholder="CEP" required value={form.cep} onBlur={cepEdit} onChange={(e)=>{handleFormEdit(e,"cep")}}/>
         <input type="text"  id="rua" className="fadeIn second" name="cadastro" placeholder="Logradouro" required defaultValue={form.logradouro}/>
         <input type="text"  id="bairro" className="fadeIn second" name="cadastro" placeholder="Bairro" required defaultValue={form.bairro}/>
@@ -103,10 +119,7 @@ const editShow2 = (e)=>{
           Senha diferente
         </div>
         }
-        
-      
       </form>
-      
 </div>
 </div>
         </>

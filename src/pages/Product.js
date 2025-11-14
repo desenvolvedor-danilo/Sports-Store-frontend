@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const { default: Image } = require("next/image");
@@ -40,7 +42,7 @@ export default function Product({endpoint,nameParam,categoria}){
                 {
                     produto.map((item,index)=>(
                     
-                        <ProdutosLancamentos key={index} target="/nikerevolution" img={<Image src={item.nomeImagem} alt="Tênis nike revolution 7" width={100} height={100}/>} nome={item.nome} edicao={item.edicao} precoAntigo={parseFloat(item.precoAntigo).toString().replace(".",",")} precoNovo={parseFloat(item.precoNovo).toString().replace(".",",")+" no pix"} outrasCores="Mais opções de cores" desconto={`-${parseInt(item.desconto)}%`} parcelado={item.parcelado!=1 ? "ou "+item.parcelado+"x de R$"+parseFloat(item.valorParcela).toFixed(2).toString().replace(".",","):""}/>
+                        <Link href={`/detailproduct?productId=${item.id}`}><ProdutosLancamentos key={index} img={<Image src={item.nomeImagem} alt="Tênis nike revolution 7" width={100} height={100}/>} nome={item.nome} edicao={item.edicao} precoAntigo={parseFloat(item.precoAntigo).toString().replace(".",",")} precoNovo={parseFloat(item.precoNovo).toString().replace(".",",")+" no pix"} outrasCores="Mais opções de cores" desconto={`-${parseInt(item.desconto)}%`} parcelado={item.parcelado!=1 ? "ou "+item.parcelado+"x de R$"+parseFloat(item.valorParcela).toFixed(2).toString().replace(".",","):""}/></Link>
                     ))
                 }
                 </div>

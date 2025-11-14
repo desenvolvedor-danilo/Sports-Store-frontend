@@ -1,24 +1,58 @@
 import Link from "next/link"
 import Image from "next/image"
-import Request from "./request"
-import { useContext, useEffect, useState } from "react"
-import { Context } from "./contexto/UserContext"
-import Refresh from "./refresh"
+import { useEffect, useState } from "react"
 import SearchBar from "./SearchBar"
+import RefreshForTime from "./refresh-for-time"
+import Request from "./request"
 
 export default function Navbar(){
+  const [isLogado,setIsLogado] = useState();
+  const [username,setUsername] = useState("")
+  const [isActived,setIsActived] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [urlPictureProfile,setUrlPictureProfile] = useState("")
+ 
+  const onOpen = () => setOpen(true);
+  const refreshToGetProfilePicture = ()=> {
+                        fetch(`http://localhost:8080/user/refresh-token?token=${localStorage.getItem("refresh-token")}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "http//localhost:8080" }
+                    }).then((res) =>
+                        res.json()
+                  ).then((data)=>{
+                      localStorage.setItem("token",data.token)
+                      localStorage.setItem("refresh-token",data.refreshToken)
+                      setIsActived(true)
+                    })
+                      .catch((e)=>{
+                        setIsLogado(false)
+                        setIsActived(false)
+                        localStorage.clear()
+                      })                     
+}
+  const refreshToGetUsername = ()=> {
+                        fetch(`http://localhost:8080/user/refresh-token?token=${localStorage.getItem("refresh-token")}`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "http//localhost:8080" }
+                    }).then((res) =>res.json())       
+                      .then((data)=>{
+                      localStorage.setItem("token",data.token)
+                      localStorage.setItem("refresh-token",data.refreshToken)})
+                      .catch(()=>{
+                        setIsLogado(false)
+                        setIsActived(false)
+                        localStorage.clear()
+                      })
+                }
+  const logout = ()=>{
+    setIsLogado(false);
+    localStorage.clear();
+  }
+
   useEffect(()=>{
     setIsLogado(localStorage.getItem("logado"))
   },[])
-  const [isLogado,setIsLogado] = useState();
-  const logout = ()=>{
-    setIsLogado(false);
-    localStorage.clear()
-  }
-  const [open, setOpen] = useState(false);
-  
-  const onOpen = () => setOpen(true);
-  
+
   useEffect(() => {
       if (open) {
           document.body.style.paddingRight = "0px";
@@ -27,13 +61,37 @@ export default function Navbar(){
           document.body.style.paddingRight = "0px";
           document.body.style.overflowY = "scroll";
       }
-      // Clean up the style when the component unmounts
       return () => {
           document.body.style.paddingRight = "0px";
           document.body.style.overflowY = "scroll";
       };
   }, [open]);
-    return(
+  
+  useEffect(()=>{
+    if(isLogado && localStorage.getItem("email")){
+    fetch("http://localhost:8080/user/get-picture-profile?email="+localStorage.getItem("email"),{
+    headers:{"Authorization":localStorage.getItem("token"), "Content-Type": "application/json", "Access-Control-Allow-Origin": "http//localhost:8080"}}
+    ).then((res)=>
+      res.text()
+    ).then((dado)=>setUrlPictureProfile(dado))
+     .catch(()=>{
+     refreshToGetProfilePicture()
+     setIsActived(false)
+  })  
+    fetch(`http://localhost:8080/user/get-users?email=${localStorage.getItem("email")}`,{
+            headers:{
+              "Authorization":localStorage.getItem("token"),"Content-Type": "application/json", "Access-Control-Allow-Origin": "http//localhost:8080"}}
+              ).then((res)=>
+                res.text()
+              ).then((dado)=>setUsername(dado))
+               .catch(()=>{
+                refreshToGetUsername()
+                setIsActived(false)
+              })
+              //  console.clear()
+            }
+  },[isLogado,isActived])
+    return(   
         <main>
         <nav className="navbar navbar-dark bg-dark fixed-top" id="navegar">
         <div className="container-fluid">
@@ -49,9 +107,18 @@ export default function Navbar(){
                   {
                     isLogado ?
                      <li className="nav-item dropdown">
-                    <Link className="nav-link dropdown-toggle" href="/masculino" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <Image src={require("./imagens/pngegg.png")} alt="icone login" width="28" height="28"/> <Request/>
+                    <Link className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {urlPictureProfile ?
+                    <>
+                    <img src={urlPictureProfile} alt="icone login" width="28" height="28" id="imagePerfil"/> {username}
+                    </>
+                    :
+                    <>
+                   <Image src={require("./imagens/pngegg.png")} alt="icone login" width="28" height="28"/> {username}
+                    </>
+                    }
                     </Link>
+
                     <ul className="dropdown-menu dropdown-menu-dark">
                       <li><Link className="dropdown-item" href="/perfil">Perfil</Link></li>
                       <li><hr className="dropdown-divider"/></li>
@@ -63,13 +130,13 @@ export default function Navbar(){
                       <li><hr className="dropdown-divider"/></li>
                       <li><Link  className="dropdown-item" href="/" onClick={()=>logout()}>Sair</Link></li>
                     </ul>
-                    </li> : <Link href="/login"><Image src={require("./imagens/pngegg.png")} alt="icone login" width="28" height="28"/>  Ir para login </Link>
+                    </li> : 
+                    <>
+                    <Image src={require("./imagens/pngegg.png")} alt="icone login" width="28" height="28"/> <Link href="/login">Ir para login </Link>
+                    </>
                   }
-                    
-                  
-                  
                 </h5>
-                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <button type="button" className="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div className="offcanvas-body">
                 <SearchBar/>
@@ -85,56 +152,19 @@ export default function Navbar(){
                         Moda masculina
                       </Link>
                       </li>
-                      {/* <ul className="dropdown-menu dropdown-menu-dark">
-                        <li><Link className="dropdown-item" href="/camisas">Camisas</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/camisetas">Camisetas</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/calcas">Calças</Link> </li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/tenis">Tênis</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/sapatos">Sapatos</Link></li>
-                      </ul>
-                      </li> */}
+                      
                     <li className="nav-item">
                       <Link className="nav-link" href="/feminino" role="button"  aria-expanded="false">
                         Moda feminina
                       </Link>
                       </li>
-                    {/* <ul className="dropdown-menu dropdown-menu-dark">
-                      <li><Link className="dropdown-item" href="/camisasfemininas">Camisas</Link></li>
-                      <li><hr className="dropdown-divider"/></li>
-                      <li><Link className="dropdown-item" href="/camisetasfemininas">Camisetas</Link></li>
-                      <li><hr className="dropdown-divider"/></li>
-                      <li><Link className="dropdown-item" href="/calcasfemininas">Calças</Link> </li>
-                      <li><hr className="dropdown-divider"/></li>
-                      <li><Link className="dropdown-item" href="/tenisfemininas">Tênis</Link></li>
-                      <li><hr className="dropdown-divider"/></li>
-                      <li><Link className="dropdown-item" href="/sapatosfemininos">Sapatos</Link></li>
-          
-                        <li><hr className="dropdown-divider"/></li>
-                        </ul>
-                        </li> */}
                         <li>
                         <Link className="nav-link" href="/infantil" role="button"  aria-expanded="false">
                           Moda infantil
                         </Link>
                         </li>
-                      {/* <ul className="dropdown-menu dropdown-menu-dark">
-                        <li><Link className="dropdown-item" href="/camisasinfantis">Camisas</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/camisetasinfantis">Camisetas</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/calcasinfantis">Calças</Link> </li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/tenisinfantis">Tênis</Link></li>
-                        <li><hr className="dropdown-divider"/></li>
-                        <li><Link className="dropdown-item" href="/sapatosinfantis">Sapatos</Link></li>
-                    </ul> */}
-                  
                 </ul>
-                <Refresh/>
+                <RefreshForTime/>
               </div>
             </div>
           </div>

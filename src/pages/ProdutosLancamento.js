@@ -1,8 +1,11 @@
 import Link from "next/link";
-function ProdutosLancamentos({target, key,img,nome,precoAntigo,precoNovo,parcelado,cor,edicao,outrasCores,desconto,alt}){
+import { useRouter } from "next/router";
+function ProdutosLancamentos({target,img,nome,precoAntigo,precoNovo,parcelado,edicao,outrasCores,desconto,alt,id}){
+    const router = useRouter();
+    
     return(
         <>
-        <Link href={target}>
+        
         <div>
                   <h3 className="per">{desconto}</h3>
                   <h1 className="tenis">{img}</h1>
@@ -14,7 +17,7 @@ function ProdutosLancamentos({target, key,img,nome,precoAntigo,precoNovo,parcela
                   <p className="parcelado">{parcelado}</p>
                   <p className="outras-cores">{outrasCores}</p>
               </div>
-              </Link>
+        
         </>
     )
 }
