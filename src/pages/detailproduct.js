@@ -86,7 +86,7 @@ export default function DetailProduct(){
                     <option value="43">43</option>
                     <option value="44">44</option>
                 </select> */}
-                <label for="quantity">Quantidade:</label>
+                <label htmlFor="quantity">Quantidade:</label>
                 <input type="number" id="quantity" name="quantity" min="1" max="10" value={quantity} onChange={(e)=>setQuantity(e.target.value)}/>
             </div>
             <div className="shipping-info">

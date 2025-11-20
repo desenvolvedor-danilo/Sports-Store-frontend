@@ -1,17 +1,38 @@
 import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 import CarrinhoComponente from "./CarrinhoCompenete";
+import { useRouter } from "next/router";
 
 export default function Carrinho() {
+  const router = useRouter()
   // const [quantity, setQuantity] = useState(1);
   const [products, setProducts] = useState([]);
   const [quantityChanged, setQuantityChanged] = useState(false);
+  const [isChanged,setIsChanged] = useState(false);
   const countQuantity = () =>{
     let quantityTotal= 0;
     products.map((item)=>{
       quantityTotal = quantityTotal + parseInt(item.quantity)
     })
     return quantityTotal;
+  }
+  const deleteProduct = (productId) =>{
+    const productChanged = products.map((item)=>{
+      if(productId === item.id){
+        fetch(`http://localhost:8080/shopping/remove?codigo=${productId}`,{
+        method:"DELETE"  
+      }).then((res)=>console.log(res.text()))
+      .then(()=>{
+       const newArray = products.filter((prod)=>prod.id!==productId)
+        setProducts(newArray)
+      })     
+      return item;
+    }
+    return item;
+    })
+    
+      //setProducts(productChanged)
+    //router.reload()
   }
   useEffect(() => {
     fetch("http://localhost:8080/shopping/findall?email="+localStorage.getItem("email"))
@@ -51,8 +72,7 @@ export default function Carrinho() {
       return item;
     });
     setProducts(updateProducts);
-  };
-  
+  };  
   const handleQuantity = async (e, id) => {
     setQuantity(e.target.value);
 
@@ -69,11 +89,12 @@ export default function Carrinho() {
           <div className="cart-items-list">
             {products.map((item) => (
               <CarrinhoComponente
-                key={item.id}
+                index={item.id}
                 number={item.quantity}
                 name={item.productName}
                 price={item.price.toString().replace(".", ",")}
                 url={item.urlImage}
+                action={() => deleteProduct(item.id)}
                 quantity={(e) => changedQuantidade(item.id, e.target.value)}
               />
             ))}
